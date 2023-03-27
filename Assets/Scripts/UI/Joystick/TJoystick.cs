@@ -20,9 +20,9 @@ public class TJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     private Vector2 centerPosition;
 
-    private Vector2 delta = new Vector2(0.0f, 0.0f);
+    private Vector2 delta;
 
-    private Vector2 direction = new Vector2(0.0f, 0.0f);
+    private Vector2 direction;
 
     public Vector2 Direction { get { return this.Direction; } }
 

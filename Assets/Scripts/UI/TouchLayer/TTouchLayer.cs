@@ -1,45 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class TTouchLayer : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
+public class TTouchLayer : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
+    public UnityAction<Vector2> Drag;
 
-    private Vector2 delta = new Vector2(0.0f, 0.0f);
+    public bool isPress;
 
-    private Vector2 direction = new Vector2(0.0f, 0.0f);
-
-    public Vector2 Direction { get { return this.Direction; } }
-
-    public void OnBeginDrag(PointerEventData e)
-    {
-
-    }
+    public float pressTime;
 
     public void OnDrag(PointerEventData e)
     {
-
-    }
-
-    public void OnEndDrag(PointerEventData e)
-    {
-        this.ResetValues();
+        this.Drag?.Invoke(e.delta);
     }
 
     public void OnPointerDown(PointerEventData e)
     {
-
+        this.isPress = true;
+        this.pressTime += Time.deltaTime;
     }
 
     public void OnPointerUp(PointerEventData e)
     {
-        this.ResetValues();
-    }
-
-    private void ResetValues()
-    {
-        this.delta = Vector2.zero;
-        this.direction = Vector2.zero;
+        this.isPress = false;
+        this.pressTime = 0.0f;
     }
 }
