@@ -20,12 +20,6 @@ public class TJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     private Vector2 centerPosition;
 
-    private Vector2 delta;
-
-    private Vector2 direction;
-
-    public Vector2 Direction { get { return this.Direction; } }
-
     private void Start()
     {
         this.originMPosition = jt.anchoredPosition;
@@ -60,17 +54,17 @@ public class TJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     private void SetMPosition(Vector2 inputPosition)
     {
-        this.delta = inputPosition - this.centerPosition;
-        this.direction = this.delta.normalized;
+        TInputManager.Instance.delta = inputPosition - this.centerPosition;
+        TInputManager.Instance.direction = TInputManager.Instance.delta.normalized;
         float distance = Vector2.Distance(inputPosition, this.centerPosition);
-        Vector2 result = this.direction * Mathf.Min(distance, this.maxOffset);
+        Vector2 result = TInputManager.Instance.direction * Mathf.Min(distance, this.maxOffset);
         this.mt.anchoredPosition = result;
     }
 
     private void ResetMPosition()
     {
         mt.anchoredPosition = Vector2.zero;
-        this.delta = Vector2.zero;
-        this.direction = Vector2.zero;
+        TInputManager.Instance.delta = Vector2.zero;
+        TInputManager.Instance.direction = Vector2.zero;
     }
 }
