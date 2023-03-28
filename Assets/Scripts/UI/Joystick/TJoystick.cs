@@ -54,8 +54,8 @@ public class TJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     private void SetMPosition(Vector2 inputPosition)
     {
-        TInputManager.Instance.delta = inputPosition - this.centerPosition;
-        TInputManager.Instance.direction = TInputManager.Instance.delta.normalized;
+        Vector2 delta = inputPosition - this.centerPosition;
+        TInputManager.Instance.direction = delta.normalized;
         float distance = Vector2.Distance(inputPosition, this.centerPosition);
         Vector2 result = TInputManager.Instance.direction * Mathf.Min(distance, this.maxOffset);
         this.mt.anchoredPosition = result;
@@ -64,7 +64,6 @@ public class TJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private void ResetMPosition()
     {
         mt.anchoredPosition = Vector2.zero;
-        TInputManager.Instance.delta = Vector2.zero;
         TInputManager.Instance.direction = Vector2.zero;
     }
 }
